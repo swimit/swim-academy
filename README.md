@@ -55,14 +55,10 @@ A `Plane` is used to start a Swim application. A `Plane` has the following featu
 
 * Has a collection of `Service` URI definitions
 * Has application configuration, including but not limited to
-
-..* http/https protocol parameters
-
-..* port bindings
-
-..* TLS parameters
-
-..* `Lane` persistent storage directory
+  * http/https protocol parameters
+  * port bindings
+  * TLS parameters
+  * `Lane` persistent storage directory
 * Starts the Swim application
  
 # Wiring it all together
