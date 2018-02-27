@@ -47,17 +47,21 @@ A `Link` is a stateful read- and write-capable subscription to a `Lane` of some 
 
 The main prominent `Link` types are
 
-1. `ValueDownLink`: links to a `ValueLane` of a `Service` instance. Provides call-back functions to execute code when the ValueLane gets updated.
-2. `MapDownLink`: links to a `MapLane` of a `Service` instance. Provides call-back functions to execute code when the MapLane gets updated.
+1. `ValueDownLink`: links to a `ValueLane` of a `Service` instance. Provides call-back functions to execute code when the `ValueLane` gets updated.
+2. `MapDownLink`: links to a `MapLane` of a `Service` instance. Provides call-back functions to execute code when the `MapLane` gets updated.
 
 ## Planes
-A `Plane` is used to start a Swim application. A Plane has the following features
+A `Plane` is used to start a Swim application. A `Plane` has the following features
 
 * Has a collection of `Service` URI definitions
 * Has application configuration, including but not limited to
+
 ..* http/https protocol parameters
+
 ..* port bindings
+
 ..* TLS parameters
+
 ..* `Lane` persistent storage directory
 * Starts the Swim application
  
