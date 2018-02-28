@@ -32,8 +32,8 @@ Swim `Services` are distributed objects. A `Service` has the following features:
 
 The most prominent lane types are
 
-1. `ValueLane`: Stores a single item and is accessed with a `ValueDownLink`. Developers can override call-back functions that execute when the `ValueLane` is updated.
-2. `MapLane`: Stores a key-value map and is accessed with `MapDownlink`. Developers can override call-back functions that execute when the `MapLane` is updated.
+1. `ValueLane`: Stores a single item and is accessed with a `ValueDownLink`. Developers can override call-back functions that execute when the `ValueLane` is updated or about to be updated.
+2. `MapLane`: Stores a key-value map and is accessed with `MapDownlink`. Developers can override call-back functions that execute when the `MapLane` is updated or about to be updated.
 3. `CommandLane`: A stateless lane for taking action and invoked with `commands`. Developers can override call-back functions that execute when the `CommandLane` is `commanded`. 
 4. `JoinLane`: Aggregates multiple downlinks in a single lane. Automatically relinks to its aggregated lanes if a service restarts. (TODO: mention JoinMapLane vs JoinValueLane?)
 
