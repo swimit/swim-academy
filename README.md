@@ -34,7 +34,7 @@ The most prominent lane types are
 
 1. `ValueLane`: Stores a single item and is accessed with a `ValueDownLink`. Developers can override call-back functions that execute when the `ValueLane` is updated or about to be updated.
 2. `MapLane`: Stores a key-value map and is accessed with `MapDownlink`. Developers can override call-back functions that execute when the `MapLane` is updated or about to be updated.
-3. `CommandLane`: A stateless lane for taking action and invoked with `commands`. Developers can override call-back functions that execute when the `CommandLane` is `commanded`. 
+3. `CommandLane`: A stateless lane for taking action and invoked with `commands`. Developers can override call-back functions that execute when the `CommandLane` is commanded. 
 4. `JoinLane`: Aggregates multiple downlinks in a single lane. Automatically relinks to its aggregated lanes if a service restarts. (TODO: mention JoinMapLane vs JoinValueLane?)
 
 The call-back functions for a given `Lane` can directly access data from other `Lanes` in the same `Service` instance. However, these functions can also read from, write to, and `command` public `Lanes` in _any Swim service, including those in a different_ `Plane`, by using the aforementioned Swim API.

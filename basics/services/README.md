@@ -21,7 +21,7 @@ We will show here that this problem can be cleanly solved by a simple Swim serve
 
 If we take an object-oriented approach to our API, we may imagine an `A` class and a `B` class. Each class could store its latest stream element and its list of historical elements as a `value` field and a `list` field, respectively. Each endpoint corresponding to a specific device is an `instance` of one of these `classes`.
 
-The Swim equivalent of a `class` is a `Service`. `fields` translate to either `ValueLanes` or `MapLanes`. `methods` and `functions` manifest themselves as the callback functions on `Lanes`.
+The Swim equivalent of a `class` is a `Service`. `fields` translate to either `ValueLanes` or `MapLanes`. `methods` and `functions` manifest themselves as the callback functions on `Lanes`, including any `CommandLanes`.
 
 ## AService
 
@@ -31,7 +31,7 @@ The Swim equivalent of a `class` is a `Service`. `fields` translate to either `V
     * A `@SwimLane` annotation must precede every `Lane` declaration. The `String` inside the annotation defines the `Lane`'s globally addressable URI and does not need to match the `Lane`'s field name.
     * `Lanes` are parametrized. Any parameters that are not explicitly provided (e.g. using `ValueLane.valueClass(), MapLane.keyClass()`) default to `<recon.Value>`. We use an `Integer` here because `A`-type devices stream `Integers`.
     
-2. Capturing a stream's history simply requires [declaring](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L19-L31) a `MapLane` instead of a single-dimensional `ValueLane`.
+2. Capturing a stream's history simply requires [declaring](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L19-L31) a `MapLane` instead of a single-dimensional `ValueLane`, and providing a key to order the historical values. Typically, this is accomplished by using a key of type `Long` and storing the relevant Unix timestamp.
 
 And, at least in terms of the final API, that's all! You likely have noticed the additional `CommandLane`, but it will make more sense to discuss this in the Data Ingestion section.
 
@@ -45,7 +45,7 @@ Filling out `BService.java` follows almost identically, but we'll need to utiliz
     
 2. After defining these transforms, we can set `model.ModelB` to be the `valueClass` of both the [`latest`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L15) and the [`history`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L30) `Lanes`. However, there's one more thing we should do.
 
-    "History" is simply a collection of all "latest" values. Thus, it would be nice if we every update to the `latest` `ValueLane` automatically populated the `history` `MapLane`.
+    "History" is simply a collection of all "latest" values. Thus, it would be nice if every update to the `latest` `ValueLane` automatically populated the `history` `MapLane`.
     
     This is the beauty of lane callback functions. Users can override the `didSet(newValue, oldValue)` callback of any `ValueLane` with custom logic that will take place every time the `ValueLane` is set. In this case, we only need to [add to the `history` `MapLane`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L20). While we could (and arguably should) have done this in `AService` as well, we have intentionally left the `MapLane.put()` logic in the `CommandLane` to provide more diverse `Lane` manipulation examples.
     
