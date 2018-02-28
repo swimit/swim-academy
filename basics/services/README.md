@@ -41,7 +41,7 @@ Filling out `BService.java` follows almost identically, but we'll need to utiliz
 
 1. To store the latest stream element, we again need a `ValueLane`. But this time, defining our stream data type requires a custom Java object.
 
-    Thankfully, any Java class can be used as a lane parameter, _provided that_ `recon` _serializations and deserializes are defined for the class_. The simplest way to do this is to [annotate the class fields](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/model/ModelB.java#L9-L20) appropriately.
+    Thankfully, any Java class can be used as a lane parameter, _provided that_ `recon` _serializations and deserializations are defined for the class_. The simplest way to do this is to [annotate the class fields](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/model/ModelB.java#L9-L20) appropriately.
     
 2. After defining these annotations, we can set `model.ModelB` to be the `valueClass` of both the [`latest`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L15) and the [`history`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L30) `Lanes`. However, there's one more thing we should do.
 
@@ -53,9 +53,11 @@ Filling out `BService.java` follows almost identically, but we'll need to utiliz
     
 We will again save the `CommandLane` discussion for the Data Ingestion section.
 
-## Writing the Plane
+# Writing the Plane
 
-## Data Ingestion
+
+
+# Data Ingestion
 
 # Swim concepts [TODO: Add links to code here with description]
 1. Create and run a Swim server
