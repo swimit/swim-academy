@@ -13,9 +13,9 @@ and we wish to create a streaming API that provides
 
 We will show here that this problem can be cleanly solved by a simple Swim server. Recall from the [top-level README](https://github.com/swimit/swim-academy/) that all we need to run a Swim application is
 
-1. Write Swim `Services` with the appropriate `Lane` definitions
-2. Write a `Plane` with the `Service` URI definitions and the application configuration
-3. Ingest data into `Lanes` using `commands` or `Links`.
+1. [Write Swim `Services`](#writing-the-swim-services) with the appropriate `Lane` definitions
+2. [Write a `Plane`](#writing-the-plane) with the `Service` URI definitions and the application configuration
+3. [Ingest data](#data-ingestion) into `Lanes` using `commands` or `Links`.
 
 # Writing the Swim Services
 
@@ -33,7 +33,7 @@ The Swim equivalent of a `class` is a `Service`. `fields` translate to either `V
     
 2. Capturing a stream's history simply requires [declaring](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L19-L31) a `MapLane` instead of a single-dimensional `ValueLane`, and providing a key to order the historical values. Typically, this is accomplished by using a key of type `Long` and storing the relevant Unix timestamp.
 
-And, at least in terms of the final API, that's all! You likely have noticed the additional `CommandLane`, but it will make more sense to discuss this in the Data Ingestion section.
+And, at least in terms of the final API, that's all! You likely have noticed the additional `CommandLane`, but it will make more sense to discuss this in the [Data Ingestion](#data-ingestion) section.
 
 ## BService
 
@@ -61,14 +61,33 @@ The object that manages such runtime behavior of Swim elements is called the Swi
 
 1. For every `Service` in the application, [declare](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L11-L18) a `ServiceType<?>` instance in the plane.
 
-2. Identify all desired plane configuration properties. [Here](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L26), we only set the application's port binding, so we can do this inline when we run the Swim bundle (see The Main Method). 
+2. Identify all desired plane configuration properties. [Here](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L26), we only set the application's port binding, so we can do this inline when running the Swim bundle (see [The Main Method](#the-main-method)). For more involved `Planes`, refer to the [documentation](TODO) on expressing and loading `Plane` configurations.
 
 # Data Ingestion
 
-## Option 
+Data ingestion is a two-part problem. Swim `Services` must expose means to receive data, and data sources must be able to send data to Swim `Services`.
+
+## Ingress by Services
+
+Swim `Services` and `Lanes` form a bidirectional API. We utilize them here to enable receiving external data, and we will use them again to view data.
+
+Let's revisit `AService`. We have declared two `Lanes` to store data, but nowhere do we write to them.
+
+`CommandLanes` are specialized Swim `Lane` that receive but do not store data. Each `CommandLane` permits overriding an `onCommand` callback that contains a reference to this data and will execute whenever it is `commanded`, such as in the [Egress by Sources](#egress-by-sources) section). We [declare](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L33-L45) one here to set the `latest` and `history` `Lanes` upon being `commanded`.
+
+The equivalent in `BService` is nearly identical. However, because the `didSet` callback on `latest` already `puts` to `history`, we only need to `set` `latest` in this `CommandLane`.
+
+## Egress by Sources
+
+Refer to the [documentation](TODO) on how an external client can write to Swim. We implement the [SwimClient](TODO) strategy here. We leave implementing the [Websocket Message](TODO) strategy as an exercise in your language of choice.
+
+To simulate a single `AService` stream for an `A` type device with id `1`, we simply [command](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/client/Client.java#L52-L55) the `addLatest` `CommandLane` at node `a/1`. Recall that the `node` and `lane` identifiers utilize the `@SwimRoute` defined in the [`Plane`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L13) and the [`@SwimLane`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L37) defined in `AService`, respectively.
+
+Simulation for a single `BService` stream [follows nearly identically](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/client/Client.java#L88-L92).
+
+The remaining code in [`Client`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/client/Client.java) simply opens subscriptions to the API that we've developed. More on that in [Testing our API](TODO).
 
 # The Main Method
-
 
 # Swim concepts [TODO: Add links to code here with description]
 1. Create and run a Swim server
