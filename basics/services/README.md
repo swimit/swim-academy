@@ -51,13 +51,24 @@ Filling out `BService.java` follows almost identically, but we'll need to utiliz
     
     The `MapLane` equivalent of `didSet` is `didUpdate`. We [override it here](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L33-L35) to drop all but the last 5 events in `history` as defined in our spec.
     
-We will again save the `CommandLane` discussion for the Data Ingestion section.
+We will again save the `CommandLane` discussion for the [Data Ingestion](#data-ingestion) section.
 
 # Writing the Plane
 
+A Swim application is relatively unintrusive. Despite exposing a potentially huge number of API endpoints, an application only utilizes a single configurable port because Swim `Service` URIs are resolved internally. Persistent data is written to a configurable location on disk.
 
+The object that manages such runtime behavior of Swim elements is called the Swim `Plane`, and while its responsibilities are complex, it is straightforward to configure.
+
+1. For every `Service` in the application, [declare](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L11-L18) a `ServiceType<?>` instance in the plane.
+
+2. Identify all desired plane configuration properties. [Here](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L26), we only set the application's port binding, so we can do this inline when we run the Swim bundle (see The Main Method). 
 
 # Data Ingestion
+
+## Option 
+
+# The Main Method
+
 
 # Swim concepts [TODO: Add links to code here with description]
 1. Create and run a Swim server
