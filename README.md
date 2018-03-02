@@ -10,7 +10,7 @@
 
 1. Create a new directory and navigate inside it.
 
-2. Add the top-level [build.gradle](TODO) to this directory.
+2. Add the top-level [build.gradle](build.gradle) to this directory.
 
 3. Add the [`libs`](libs) directory and its contents.
 
