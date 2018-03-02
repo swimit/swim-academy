@@ -10,11 +10,11 @@
 
 1. Create a new directory and navigate inside it.
 
-2. Add the top-level [build.gradle](TODO).
+2. Add the top-level [build.gradle](TODO) to this directory.
 
 3. Add the [`libs`](TODO) directory and its contents.
 
-You can now import the `build.gradle` into your IDE of choice and start developing, conforming to Gradle's [standard directory layout](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_project_layout).
+You can now import the `build.gradle` into your IDE of choice and start developing, as long as you conform to Gradle's [standard directory layout](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_project_layout).
 
 ## Building with Artifactory TODO
 
