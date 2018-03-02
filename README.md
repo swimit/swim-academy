@@ -1,3 +1,50 @@
+# Installation
+
+## Prerequisites
+
+* Install [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html). Make sure your JAVA_HOME environment variable is pointed to the Java 8 installation location. Make sure that your PATH includes $JAVA_HOME.
+
+* Install [Gradle](https://gradle.org/install/), and update your PATH environment variable as instructed.
+
+## Developing with Local .jars
+
+1. Create a new directory and navigate inside it.
+
+2. Add the top-level [build.gradle](TODO).
+
+3. Add the [`libs`](TODO) directory and its contents.
+
+You can now import the `build.gradle` into your IDE of choice and start developing, conforming to Gradle's [standard directory layout](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_project_layout).
+
+## Building with Artifactory TODO
+
+Add the following dependencies in your `build.gradle`
+
+```groovy
+dependencies {
+  compile 'ai.swim:swim-client:0.1.0.20180216001614'
+  compile 'ai.swim:swim-server:0.1.0.20180216001614'
+}
+```
+
+and the following repository
+
+```groovy
+repositories {
+  maven {
+    url 'https://repo.swim.it/swim-releases/'
+    credentials {
+      username "${artifactoryUserName}"
+      password "${artifactoryUserPassword}"
+    }
+    authentication {
+      digest(BasicAuthentication)
+    }
+  }
+}
+```
+To actually use the 
+
 # Introduction
 Swim is an eventually consistent, real-time, distributed object system. The building blocks of a SWIM server are `Services`, `Lanes`, `Links`, and a single `Plane`, where
 
