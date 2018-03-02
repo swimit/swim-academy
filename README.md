@@ -14,7 +14,11 @@
 
 3. Add the [`libs`](libs) directory and its contents.
 
-You can now import the `build.gradle` into your IDE of choice and start developing, as long as you conform to Gradle's [standard directory layout](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_project_layout).
+You can now import the `build.gradle` into your IDE of choice and start developing. Alternatively, you can create your source files manually as long as you conform to Gradle's [standard directory layout](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_project_layout).
+
+To build the application, run `gradle build` from a shell pointed to the application's home directory. This will additionally create a `.zip` and a `.tar` in `APP_HOME/build/distributions` that, when unpackaged, contain scripts in the `bin/` directory that enable running standalone.
+
+If you don't mind running through the Gradle VM, `gradle run` will both build and run the application.
 
 ## Building with Artifactory TODO
 
