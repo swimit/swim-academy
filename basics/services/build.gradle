@@ -1,5 +1,3 @@
-import org.apache.tools.ant.filters.*
-
 buildscript {
     repositories {
       maven { url 'https://plugins.gradle.org/m2/' }
@@ -14,25 +12,21 @@ apply plugin: 'application'
 apply plugin: 'nebula.ospackage-application'
 apply plugin: 'maven'
 
-group = 'it.swim'
+group = 'ai.swim'
 description = "Illustrate basic Swim concepts- ValueLane, MapLane, CommandLane, Recon and Java Objects"
-version = project.property("application.version")
 sourceCompatibility = 1.8
 
 repositories {
   maven {
-    url 'https://repo.swim.it/swim-releases/'
+    url 'https://repo.swim.it/swim-academy/'
     credentials {
-      username "${artifactoryUserName}"
-      password "${artifactoryUserPassword}"
+      username "swim-academy"
+      password "academy-swim"
     }
     authentication {
       digest(BasicAuthentication)
     }
   }
-  maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-  maven { url 'https://oss.sonatype.org/content/repositories/releases' }
-  mavenCentral()
 }
 
 configurations.all {
@@ -42,71 +36,30 @@ configurations.all {
 }
 
 dependencies {
-  compile 'ai.swim:swim-client:0.1.0.20180216001614'
-  compile 'ai.swim:swim-server:0.1.0.20180216001614'
-  testCompile 'org.testng:testng:6.9.10'
+  compile 'ai.swim:swim-server-client:0.1.20180208234509-SNAPSHOT'
 }
 
-tasks.withType(JavaCompile) {
-  options.encoding = 'UTF-8'
+configurations {
+  testCompile.exclude group: 'ai.swim:swim-server'
 }
 
 compileJava {
   options.compilerArgs += ['-Xlint']
 }
 
-compileTestJava {
-  options.compilerArgs += ['-Xlint']
-}
-
-test {
-  useTestNG()
-
-  scanForTestClasses = false
-  include '**/*Spec.class'
-
-  testLogging {
-    events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-    exceptionFormat 'full'
-    displayGranularity = 4
-  }
-
-  outputs.upToDateWhen { false }
-}
-
-tasks.withType(JavaCompile) {
-  options.encoding = 'UTF-8'
-}
-
 javadoc {
   options.charSet = 'UTF-8'
 }
 
-task javadocJar(type: Jar) {
-  classifier = 'javadoc'
-  from javadoc
+task runMain(type: JavaExec) {
+  main = mainClassName
+  systemProperties System.properties
 }
 
-task sourcesJar(type: Jar) {
-  classifier = 'sources'
-  from sourceSets.main.allSource
-}
-
-artifacts {
-  archives javadocJar, sourcesJar
-}
-
-// gradle -Pconfig=swim.recon runMain
-if (project.hasProperty('mainClassName')) {
-  task runMain(type: JavaExec) {
-    main = mainClassName
-    classpath = sourceSets.test.runtimeClasspath
-    if (project.hasProperty('config')) {
-      args = [project.property('config')]
-    }
-
-    systemProperties System.properties
-  }
+task runClient(type: JavaExec) {
+  main = 'ai.swim.client.Client'
+  classpath = sourceSets.test.runtimeClasspath
+  systemProperties System.properties
 }
 
 mainClassName = 'ai.swim.App'
