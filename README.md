@@ -77,3 +77,8 @@ There are just three steps to build a SWIM Application.
 3. Ingest data into `Lanes` using `commands` or `Downlinks`, via either a `SwimClient` instance or an external program
 
 That's it! `Services` spawn lazily when a URI associated with a `Service` or `Lane` instance is invoked for the first time, so SWIM `Services` will process data immediately upon its availability without requiring their explicit instantiation.
+
+Visit the following tutorials to see concrete applications built through these steps.
+
+* [Basics](https://github.com/swimit/swim-academy/blob/master/basics/services)
+* [Joins](https://github.com/swimit/swim-academy/blob/master/joins/services)
