@@ -16,17 +16,17 @@ We highly recommend that you go through at LEAST the [basics](basics/services) t
 
 * Refer to the sample [build.gradle](basics/services/build.gradle) for reference. You may use this build.gradle for all your applications.
 
-* To build the application execute the command `gradle build` from a shell pointed to the application's home directory
+* To build the application execute the command `gradle build` from a shell pointed to the application's home directory. This will create a `.zip` and a `.tar` in `APP_HOME/build/distributions` directory. Unpackage the `.zip` or the `.tar` file. The unpackaged contents will contain a `bin/` directory which contains scripts that can be used to run the application.
 ```console
 user@machine:~$ gradle build
 ```
-This will create a `.zip` and a `.tar` in `APP_HOME/build/distributions` directory. Unpackage the `.zip` or the `.tar` file. The unpackaged contents will contain a `bin/` directory which contains scripts that can be used to run the application.
+  
 
-* Alternatively, if you don't mind running through the Gradle VM, execute the command `gradle run`
+* Alternatively, if you don't mind running through the Gradle VM, execute the command `gradle run`. This will both build and run the application.
 ```console
 user@machine:~$ gradle run
 ```
-This will both build and run the application.
+
 
 # Creating Your Own SWIM Application
 
