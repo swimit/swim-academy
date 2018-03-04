@@ -14,48 +14,19 @@ We highly recommend that you go through at LEAST the [basics](basics/services) t
 
 * Install [Gradle](https://gradle.org/install/). Ensure that your PATH includes the Gradle `bin` directory.
 
-## Option 1: Developing with Local .jars
+* Refer to the sample [build.gradle](basics/services/build.gradle) for reference. You may use this build.gradle for all your applications.
 
-1. Create a new directory and navigate inside it.
-
-2. Add the top-level [build.gradle](build.gradle) to this directory.
-
-3. Add the [`libs`](libs) directory and its contents.
-
-## Option 2: Building with Artifactory TODO
-
-Add the following dependencies in your `build.gradle`
-
-```groovy
-dependencies {
-  compile 'ai.SWIM:SWIM-client:0.1.0.20180216001614'
-  compile 'ai.SWIM:SWIM-server:0.1.0.20180216001614'
-}
+* To build the application execute the command `gradle build` from a shell pointed to the application's home directory
+```console
+user@machine:~$ gradle build
 ```
+This will create a `.zip` and a `.tar` in `APP_HOME/build/distributions` directory. Unpackage the `.zip` or the `.tar` file. The unpackaged contents will contain a `bin/` directory which contains scripts that can be used to run the application.
 
-and the following repository
-
-```groovy
-repositories {
-  maven {
-    url 'https://repo.SWIM.it/SWIM-releases/'
-    credentials {
-      username "${artifactoryUserName}"
-      password "${artifactoryUserPassword}"
-    }
-    authentication {
-      digest(BasicAuthentication)
-    }
-  }
-}
+* Alternatively, if you don't mind running through the Gradle VM, execute the command `gradle run`
+```console
+user@machine:~$ gradle run
 ```
----
-
-Once either of the above options has been exercised, you can import the `build.gradle` into your IDE of choice and start developing. Alternatively, you can create your source files manually as long as you conform to Gradle's [standard directory layout](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_project_layout).
-
-To build the application, run `gradle build` from a shell pointed to the application's home directory. This will additionally create a `.zip` and a `.tar` in `APP_HOME/build/distributions` that, when unpackaged, contain scripts in the `bin/` directory that enable running standalone.
-
-Alternatively, if you don't mind running through the Gradle VM, `gradle run` will both build and run the application.
+This will both build and run the application.
 
 # Creating Your Own SWIM Application
 
