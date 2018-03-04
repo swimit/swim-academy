@@ -16,7 +16,7 @@ public class Client {
     sc.start();
     final String host = "ws://localhost:9001";
     runAService(sc, host);
-    //runBService(sc, host);
+    runBService(sc, host);
   }
 
   private static void runAService(SwimClient sc, String host) throws InterruptedException {
