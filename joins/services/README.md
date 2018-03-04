@@ -6,3 +6,16 @@ To show the power of joins as clearly as possible, we will consider a very simpl
 
 `joinLatest` illustrates a simple "aggregate all" functionality by writing all updates to a `MapLane` called [allLatest](https://github.com/swimit/swim-academy/blob/master/joins/services/src/main/java/ai/swim/service/JoinService.java#L49-L53), and where each value is keyed by the corresponding service id (`nodeUri`). A second `MapLane`, [latestOdd](https://github.com/swimit/swim-academy/blob/master/joins/services/src/main/java/ai/swim/service/JoinService.java#L62-L66), will illustrate filtering by only passing through odd numbers, and which otherwise behaves in the same fashion as `allLatest`.
     
+# Run
+
+## Run the application
+Execute the command `gradle run` from a shell pointed to the application's home directory. This will start the Swim plane.
+   ```console
+    user@machine:~$ gradle run
+   ```
+
+## Run the client
+Execute the command `gradle runClient` from a shell pointed to the application's home directory. This will start the client.
+   ```console
+    user@machine:~$ gradle runClient
+   ```
