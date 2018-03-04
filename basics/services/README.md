@@ -77,7 +77,7 @@ Let's revisit `AService`. We have declared two `Lanes` to store data, but nowher
 
 The equivalent in `BService` is nearly identical. However, because the `didSet` callback on `latest` already `puts` to `history`, we only need to `set` `latest` in this `CommandLane`.
 
-## Egress by Sources
+## Egress by Data Sources
 
 Refer to the [documentation](TODO) on how an external client can write to Swim. We implement the [SwimClient](TODO) strategy here. We leave implementing the [Websocket Message](TODO) strategy as an exercise in your language of choice.
 
@@ -87,12 +87,19 @@ Simulation for a single `BService` stream [follows nearly identically](https://g
 
 The remaining code in [`Client`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/client/Client.java) simply opens subscriptions to the API that we've developed. More on that in [Testing our API](TODO).
 
-# The Main Method
 
-# Swim concepts [TODO: Add links to code here with description]
-1. Create and run a Swim server
-2. Create Services and define URIs for them
-3. ValueLane, MapLane and CommandLane operations
-4. Recon basics and Java Object to Recon conversion
-5. Swim Client operations: ingest data to lanes in a service and subscribe to data from lanes in a service
+# Run
 
+## Run the application
+Execute the command `gradle run` from a shell pointed to the application's home directory. This will start the Swim plane
+
+    ```console
+    user@machine:~$ gradle run
+    ```
+
+## Run the client
+Execute the command `gradle runClient` from a shell pointed to the application's home directory. This will start the client
+
+    ```console
+    user@machine:~$ gradle runClient
+    ```
