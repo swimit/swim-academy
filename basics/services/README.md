@@ -63,7 +63,7 @@ The object that manages such runtime behavior of Swim elements is called the Swi
 
 1. For every `Service` in the application, [declare](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L11-L18) a `ServiceType<?>` instance in the plane.
 
-2. Identify all desired plane configuration properties. [Here](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L26), we only set the application's port binding, so we can do this inline when running the Swim bundle (see [The Main Method](#the-main-method)). We will cover more involved `Plane` configurations in the `join` services [example](https://github.com/swimit/swim-academy/tree/master/joins/services#writing-the-plane)
+2. Identify all desired plane configuration properties. [Here](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L26), we only set the application's port binding, so we can do this inline when running the Swim bundle. We will cover more involved `Plane` configurations in the `join` services [example](https://github.com/swimit/swim-academy/tree/master/joins/services#writing-the-plane)
 
 # Data Ingestion
 
