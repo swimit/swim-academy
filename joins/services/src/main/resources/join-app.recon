@@ -1,0 +1,35 @@
+@server {
+ @plane("plane-name") {
+   class: "ai.swim.App"
+ }
+
+ @store {
+   # path where the lane data is stored
+   path: "/tmp/swim-join/"
+ }
+
+ # Specify ports to bind to
+ @http(port:9002) {
+    plane: "plane-name"
+ }
+
+ # Configuration for TLS
+ #@https(port: 443) {
+   #plane: "plane-name"
+   #@tls(protocol: "TLS") {
+     #clientAuth: none # none | want | need
+     #cipherSuites: {"", ""} # array of JCE cipher suite strings
+     #protocols:  # array of JCE crypto protocols
+     #@keyStore(type: "JKS") {
+       #path: "" # file path
+       #resource: "" # -or- classpath resource
+       #password: "" # keystore password
+     #}
+     #@trustStore(type: "JKS") {
+       #path: "" # file path
+       #resource: "" # -or- classpath resource
+       #password: "" # keystore password
+     #}
+   #}
+ #}
+}

@@ -14,7 +14,7 @@ public class Client {
     // start the swim client
     final SwimClient sc = new SwimClient();
     sc.start();
-    final String host = "ws://localhost:9001";
+    final String host = "ws://localhost:9002";
 
     runJoinService(sc, host);
     runUnitService(sc, host);
