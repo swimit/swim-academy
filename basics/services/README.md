@@ -85,11 +85,11 @@ The equivalent in `BService` is nearly identical. However, because the `didSet` 
 
 Refer to the [documentation](https://github.com/swimit/swim-academy/wiki/Data-Ingestion#egress-by-data-sources) on how an external client can write to Swim. We implement the `SwimClient` strategy here. We leave implementing the `Websocket Message` strategy as an exercise in your language of choice.
 
-To simulate a single `AService` stream for an `A` type device with id `1`, we simply [command](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/client/Client.java#L52-L55) the `addLatest` `CommandLane` at node `a/1`. Recall that the `node` and `lane` identifiers utilize the `@SwimRoute` defined in the [`Plane`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L13) and the [`@SwimLane`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L37) defined in `AService`, respectively.
+To simulate a single `AService` stream for an `A` type device with id `1`, we simply [command](https://github.com/swimit/swim-academy/blob/master/basics/services/src/test/java/ai/swim/client/Client.java#L52-L55) the `addLatest` `CommandLane` at node `a/1`. Recall that the `node` and `lane` identifiers utilize the `@SwimRoute` defined in the [`Plane`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L13) and the [`@SwimLane`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L37) defined in `AService`, respectively.
 
-Simulation for a single `BService` stream [follows nearly identically](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/client/Client.java#L88-L92).
+Simulation for a single `BService` stream [follows nearly identically](https://github.com/swimit/swim-academy/blob/master/basics/services/src/test/java/ai/swim/client/Client.java#L88-L92).
 
-The remaining code in [`Client`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/client/Client.java) simply opens subscriptions to the API that we've developed. More on that in [Testing our API](TODO).
+The remaining code in [`Client`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/test/java/ai/swim/client/Client.java) simply opens subscriptions to the API that we've developed.
 
 
 # Run
