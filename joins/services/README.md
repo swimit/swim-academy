@@ -6,6 +6,17 @@ To show the power of joins as clearly as possible, we will consider a very simpl
 
 `joinLatest` illustrates a simple "aggregate all" functionality by writing all updates to a `MapLane` called [allLatest](https://github.com/swimit/swim-academy/blob/master/joins/services/src/main/java/ai/swim/service/JoinService.java#L49-L53), and where each value is keyed by the corresponding service id (`nodeUri`). A second `MapLane`, [latestOdd](https://github.com/swimit/swim-academy/blob/master/joins/services/src/main/java/ai/swim/service/JoinService.java#L62-L66), will illustrate filtering by only passing through odd numbers, and which otherwise behaves in the same fashion as `allLatest`.
     
+# Writing the Swim Services
+The fundamental principles behind writing services are documented in the ["basics"](https://github.com/swimit/swim-academy/blob/master/basics/services/README.md#writing-the-swim-services) repository.
+
+## UnitService
+
+## JoinService
+
+# Writing the Plane
+
+# Data Ingestion
+
 # Run
 
 ## Run the application
