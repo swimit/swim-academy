@@ -37,8 +37,6 @@ And, at least in terms of the final API, that's all! You likely have noticed the
 
 ## BService
 
-[Relevant reading](https://github.com/swimit/swim-academy/wiki/Services#configuration)
-
 Filling out `BService.java` follows almost identically, but we'll need to utilize a few more tools here.
 
 * To store the latest stream element, we again need a `ValueLane`. But this time, defining our stream data type requires a custom Java object.
