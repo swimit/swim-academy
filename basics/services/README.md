@@ -19,31 +19,33 @@ We will show here that this problem can be cleanly solved by a simple Swim serve
 
 # Writing the Swim Services
 
+[Relevant reading](https://github.com/swimit/swim-academy/wiki/Services#configuration)
+
 If we take an object-oriented approach to our API, we may imagine an `A` class and a `B` class. Each class could store its latest stream element and its list of historical elements as a `value` field and a `list` field, respectively. Each endpoint corresponding to a specific device is an `instance` of one of these `classes`.
 
 The Swim equivalent of a `class` is a `Service`. `fields` translate to either `ValueLanes` or `MapLanes`. `methods` and `functions` manifest themselves as the callback functions on `Lanes`, including any `CommandLanes`.
 
 ## AService
 
-0. To access the Swim API, each user-defined `Service` must [extend](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L3-L5) `swim.api.AbstractService`.
-
-1. Let's enable the simplest spec requirement: storing the latest stream element. This simply requires [declaring](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L7-L17) a `ValueLane`. Things to note:
+* To access the Swim API, each user-defined `Service` must [extend](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L3-L5) `swim.api.AbstractService`.
+* Let's enable the simplest spec requirement: storing the latest stream element. This simply requires [declaring](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L7-L17) a `ValueLane`. Things to note:
     * A `@SwimLane` annotation must precede every `Lane` declaration. The `String` inside the annotation defines the `Lane`'s globally addressable URI and does not need to match the `Lane`'s field name.
     * `Lanes` are parametrized. Any parameters that are not explicitly provided (e.g. using `ValueLane.valueClass(), MapLane.keyClass()`) default to `<recon.Value>`. We use an `Integer` here because `A`-type devices stream `Integers`.
-    
-2. Capturing a stream's history simply requires [declaring](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L19-L31) a `MapLane` instead of a single-dimensional `ValueLane`, and providing a key to order the historical values. Typically, this is accomplished by using a key of type `Long` and storing the relevant Unix timestamp.
+* Capturing a stream's history simply requires [declaring](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L19-L31) a `MapLane` instead of a single-dimensional `ValueLane`, and providing a key to order the historical values. Typically, this is accomplished by using a key of type `Long` and storing the relevant Unix timestamp.
 
 And, at least in terms of the final API, that's all! You likely have noticed the additional `CommandLane`, but it will make more sense to discuss this in the [Data Ingestion](#data-ingestion) section.
 
 ## BService
 
+[Relevant reading](https://github.com/swimit/swim-academy/wiki/Services#configuration)
+
 Filling out `BService.java` follows almost identically, but we'll need to utilize a few more tools here.
 
-1. To store the latest stream element, we again need a `ValueLane`. But this time, defining our stream data type requires a custom Java object.
+* To store the latest stream element, we again need a `ValueLane`. But this time, defining our stream data type requires a custom Java object.
 
     Thankfully, any Java class can be used as a lane parameter, _provided that_ `recon` _serializations and deserializations are defined for the class_. If we [annotate the class fields](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/model/ModelB.java#L9-L20) with `@ReconName` appropriately, Swim will automatically generate and store these transformations using reflection. Although this annotation-based process is simple and sufficient for this example, it proves rather restrictive in general; alternative means to generate the recon transforms can be found [here](https://github.com/swimit/swim-academy/wiki/Recon).
     
-2. After defining these transforms, we can set `model.ModelB` to be the `valueClass` of both the [`latest`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L15) and the [`history`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L30) `Lanes`. However, there's one more thing we should do.
+* After defining these transforms, we can set `model.ModelB` to be the `valueClass` of both the [`latest`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L15) and the [`history`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L30) `Lanes`. However, there's one more thing we should do.
 
     "History" is simply a collection of all "latest" values. Thus, it would be nice if every update to the `latest` `ValueLane` automatically populated the `history` `MapLane`.
     
@@ -55,6 +57,8 @@ We will again save the `CommandLane` discussion for the [Data Ingestion](#data-i
 
 # Writing the Plane
 
+[Relevant reading](https://github.com/swimit/swim-academy/wiki/Planes-and-Main#configuration)
+
 A Swim application is relatively unintrusive. Despite exposing a potentially huge number of API endpoints, an application only utilizes a single configurable port because Swim `Service` URIs are resolved internally. Persistent data is written to a configurable location on disk.
 
 The object that manages such runtime behavior of Swim elements is called the Swim `Plane`, and while its responsibilities are complex, it is straightforward to configure.
@@ -64,6 +68,8 @@ The object that manages such runtime behavior of Swim elements is called the Swi
 2. Identify all desired plane configuration properties. [Here](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L26), we only set the application's port binding, so we can do this inline when running the Swim bundle (see [The Main Method](#the-main-method)). We will cover more involved `Plane` configurations in the `join` services [example](https://github.com/swimit/swim-academy/tree/master/joins/services#writing-the-plane)
 
 # Data Ingestion
+
+[Relevant reading](https://github.com/swimit/swim-academy/wiki/Data-Ingestion)
 
 Data ingestion is a two-part problem. Swim `Services` must expose means to receive data, and data sources must be able to send data to Swim `Services`.
 
