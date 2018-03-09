@@ -19,7 +19,8 @@ We will show here that this problem can be cleanly solved by a simple Swim serve
 
 # Writing the Swim Services
 
-[Relevant reading](https://github.com/swimit/swim-academy/wiki/Services#configuration)
+[Services Wiki](https://github.com/swimit/swim-academy/wiki/Services#configuration)
+[Lanes Wiki](https://github.com/swimit/swim-academy/wiki/Lanes)
 
 If we take an object-oriented approach to our API, we may imagine an `A` class and a `B` class. Each class could store its latest stream element and its list of historical elements as a `value` field and a `list` field, respectively. Each endpoint corresponding to a specific device is an `instance` of one of these `classes`.
 
@@ -55,7 +56,7 @@ We will again save the `CommandLane` discussion for the [Data Ingestion](#data-i
 
 # Writing the Plane
 
-[Relevant reading](https://github.com/swimit/swim-academy/wiki/Planes-and-Main#configuration)
+[Planes Wiki](https://github.com/swimit/swim-academy/wiki/Planes-and-Main#configuration)
 
 A Swim application is relatively unintrusive. Despite exposing a potentially huge number of API endpoints, an application only utilizes a single configurable port because Swim `Service` URIs are resolved internally. Persistent data is written to a configurable location on disk.
 
