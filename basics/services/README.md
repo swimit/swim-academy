@@ -20,6 +20,7 @@ We will show here that this problem can be cleanly solved by a simple Swim serve
 # Writing the Swim Services
 
 [Services Wiki](https://github.com/swimit/swim-academy/wiki/Services#configuration)
+
 [Lanes Wiki](https://github.com/swimit/swim-academy/wiki/Lanes)
 
 If we take an object-oriented approach to our API, we may imagine an `A` class and a `B` class. Each class could store its latest stream element and its list of historical elements as a `value` field and a `list` field, respectively. Each endpoint corresponding to a specific device is an `instance` of one of these `classes`.
