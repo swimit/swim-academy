@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SWIM Gauge</title>
+    <title>SWIM KPI</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <script src="http://developer.swim.services/assets/js/swim-app.js"></script>
@@ -9,9 +9,9 @@
     <style>
       html, body {
           display: flex;
-          width: 100%;
+          width: 75%;
           height: 75%;
-          margin: 0;50
+          margin: 100;
           background-color: #f0f0f0;
           font-family: Lato, sans-serif;
           font-size: 12px;
@@ -21,21 +21,18 @@
   </head>
   <body style="flex-grow: 1;">
     <script type="text/recon">
-      @gauge {
-          host: 'swim://localhost:9001'
-          node: 'b/1'
-          linkB: @link(lane: 'latest', type: value)
-          id: gauge
-          title: 'B.i Value'
-          meter: $linkB.i/1000
-          value: @text($eager($linkB.i))
-          # Gauge Style
-          dialCornerRadius: 100 @pct
-          dialColor: '#7fbaff'
-          faceColor: '#7d8792'
-          valueColor: '#4a4a4a'
-          valueSize: 15 @pct
-      }
+     @kpi {
+        host: 'swim://localhost:9001'
+        node: 'a/1'
+        linkA: @link(lane: 'latest', type: value)
+        transition: @transition(1, linear)
+        primaryColor: '#fcb237'
+        subtitle: @text([A Value])
+        value: @text($eager($linkA.*))
+        valueSize: 100 @px
+        label: @text([])
+        backgroundColor: 'rgba(0,0,0,0)'
+     }
     </script>
   </body>
 </html>
