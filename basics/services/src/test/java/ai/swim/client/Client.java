@@ -10,23 +10,27 @@ import swim.client.SwimClient;
  */
 public class Client {
 
+  // 'AService' with id as 1
+  private  static  final String ANodeUri = "a/1";
+  // 'BService' with id as 1
+  private  static  final String BNodeUri = "b/1";
+
+
   public static void main(String[] args) throws Exception {
     // start the swim client
     final SwimClient sc = new SwimClient();
     sc.start();
     final String host = "ws://localhost:9001";
-    runAService(sc, host);
-    runBService(sc, host);
+    linkToAService(sc, host);
+    linkToBService(sc, host);
+    sendDataToServices(sc, host);
   }
 
-  private static void runAService(SwimClient sc, String host) throws InterruptedException {
-    // Instantiate Serivce 'AService' with id as 1
-    final String nodeUri = "a/1";
-
+  private static void linkToAService(SwimClient sc, String host) throws InterruptedException {
     // link to latest lane of service with uri /a/1
     // didReceive call back function receives the current state of the value lane and all subsequent changes to the value lane
     sc.hostRef(host)
-        .nodeRef(nodeUri)
+        .nodeRef(ANodeUri)
         .laneRef("latest")
         .downlinkValue()
         .keepSynced(true)
@@ -38,7 +42,7 @@ public class Client {
     // link to history lane of service with uri /a/1
     // didUpdate call back function receives the current state of the map and  all subsequent changes to the map lane
     sc.hostRef(host)
-        .nodeRef(nodeUri)
+        .nodeRef(ANodeUri)
         .laneRef("history")
         .downlinkMap()
         .keepSynced(true)
@@ -47,20 +51,26 @@ public class Client {
           System.out.println("Updated history (key, value): (" + key.toRecon() + ":" + newValue.toRecon() + ")");
         });
 
-    // send message to the addLatest command lane to an instance of service AService i.e. with id 1
-    // since the command lane expects an integer, convert the integer to Value type
-    for(int i = 0; i <=10; i++) {
-      sc.command(host, nodeUri, "addLatest", Value.of(i));
-      Thread.sleep(1000l);
+  }
+
+  private static void sendDataToServices(SwimClient sc, String host) throws InterruptedException {
+    final int limit = 500;
+    for(int i = 0; i <=limit; i++) {
+      // send message to the addLatest command lane to an instance of service AService i.e. with id 1
+      // since the command lane expects an integer, convert the integer to Value type
+      sc.command(host, ANodeUri, "addLatest", Value.of(i));
+
+      // send message to the addLatest command lane to an instance of service BService i.e. with id 1
+      // since the command lane expects type ModelB, convert the instance of Model BService to a Recon Value type
+      ModelB b = new ModelB(i%2 ==0, Integer.toString(i), i, (long) i, (float) (limit -i), (double) (limit -i));
+      sc.command(host, BNodeUri, "addLatest", b.toValue());
+      Thread.sleep(250l);
     }
   }
 
-  private static void runBService(SwimClient sc, String host) throws InterruptedException {
-    // Instantiate Serivce 'BService' with id as 1
-    final String nodeUri = "b/1";
-
+  private static void linkToBService(SwimClient sc, String host) throws InterruptedException {
     sc.hostRef(host)
-        .nodeRef(nodeUri)
+        .nodeRef(BNodeUri)
         .laneRef("latest")
         .downlinkValue()
         .keepSynced(true)
@@ -71,7 +81,7 @@ public class Client {
 
     // link to history lane of service with uri b/1
     sc.hostRef(host)
-        .nodeRef(nodeUri)
+        .nodeRef(BNodeUri)
         .laneRef("history")
         .downlinkMap()
         .keepSynced(true)
@@ -82,13 +92,5 @@ public class Client {
         .didDrop(d -> {
           System.out.println("Dropped from history element count:" + d);
         });
-
-    // send message to the addLatest command lane to an instance of service AService i.e. with id 1
-    // since the command lane expects type ModelB, convert the instance of Model BService to a Recon Value type
-    for(int i = 0; i <=10; i++) {
-      ModelB b = new ModelB(i%2 ==0, Integer.toString(i), i, (long) i, (float) i, (double) i);
-      sc.command(host, nodeUri, "addLatest", b.toValue());
-      Thread.sleep(1000l);
-    }
   }
 }
