@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SWIM Chart A</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <script src="http://developer.swim.services/assets/js/swim-app.js"></script>
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <style>
+      html, body {
+          display: flex;
+          width: 50%;
+          height: 100%;
+          margin: 100;
+          background-color: #f0f0f0;
+          font-family: Lato, sans-serif;
+          font-size: 12px;
+          color: #4a4a4a;
+      }
+    </style>
+  </head>
+  <body style="flex-grow: 1;">
+    <script type="text/recon">
+@chart {
+  id: chart
+
+  alertHue: $interpolate('#e1a138', '#fcb237')
+  host: 'swim://localhost:9001'
+  node: 'a/1'
+
+  history: @link(lane: 'history', type: value)
+#  data: @let($log($history))
+
+  transition: @transition(300, linear)
+
+  @plot(type: circle) {
+    lineDashArray: {4, 2}
+    lineColor: 'rgba(232,39,39,0.25)'
+    @each(t: $history.*) {
+      key: $log($t) || $t
+      @plotPoint {
+        sample: $log(@let($history.($[$t == key]))) || @let($history.($[$t == key]))
+        x: $sample
+        y: $random()
+      }
+    }
+  }
+
+  top: {
+    gutter: '50px'
+  }
+  right: {
+    gutter: '50px'
+  }
+  bottom: @axis(type: time) {
+    gutter: '50px'
+    kinematic: true
+  }
+  left: @axis(type: linear) {
+    gutter: '100px'
+  }
+
+  domainBoundLeft: true
+  domainBoundRight: true
+
+  domainPaddingTop: 1
+  domainPaddingBottom: 1
+}
+    </script>
+  </body>
+</html>
