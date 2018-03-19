@@ -62,4 +62,4 @@ task runClient(type: JavaExec) {
   systemProperties System.properties
 }
 
-mainClassName = 'ai.swim.App'
+mainClassName = 'ai.swim.Main'
