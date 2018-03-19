@@ -8,12 +8,13 @@ public class FileService extends AbstractService {
   @SwimLane("avgAndCount")
   private MapLane<Value, Value> avgAndCount = mapLane()
     .didUpdate((k,n,o) -> {
-      System.out.println("k:" + k.toRecon() + ", n:" + n.toRecon());
+      System.out.println(nodeUri().toUri() + " k: " + k.toRecon() + ", n:" + n.toRecon());
   });
 
   @SwimLane("addLatest")
   private CommandLane<Value> addLatest = commandLane()
     .onCommand(v -> {
+      // Precondition: every Item in v is maps a String to a Number
       System.out.println("addlatest: " + v.toRecon());
       // For a v that looks like {length:21,wingspan:28}...
       v.asRecord().stream().map(Item::asField).forEach(f -> {

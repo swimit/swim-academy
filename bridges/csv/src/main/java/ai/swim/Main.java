@@ -22,6 +22,7 @@ public class Main {
     final String node = "/file/" + fileName;
     final String lane = "addLatest";
     final Record newRecord = Record.of();
+    // Only send over the entries containing numeric fields
     rec.stream().map(Item::asField).forEach(f -> {
       try {
         newRecord.slot(f.getKey(), Value.of(f.getValue().numberValue()));
@@ -73,6 +74,6 @@ public class Main {
 
   public static void main(String[] args) throws IOException, InterruptedException {
     final SwimPlane plane = startServer();
-    ingestFile(System.getProperty("path", "/Users/you/path/file.csv"), plane);
+    ingestFile(System.getProperty("path", "/Users/rohitbose/Desktop/test.csv"), plane);
   }
 }
