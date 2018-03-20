@@ -30,7 +30,7 @@ public final class HttpRequester {
     }
   }
 
-  public void receiveExternalData() {
+  public void relayExternalData() {
     for (String title: titles) {
       final Runnable r = () -> {
         try {

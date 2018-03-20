@@ -18,7 +18,7 @@ public class Main {
 
   private static void sendData(SwimPlane sp) {
     final String[] stocks = new String[]{"Microsoft", "Google", "Netflix"};
-    new HttpRequester(sp, stocks).receiveExternalData(); //
+    new HttpRequester(sp, stocks).relayExternalData();
   }
 
   public static void main(String[] args) {
