@@ -20,5 +20,4 @@ public class Stock extends AbstractService {
     .onCommand(v -> {
       latest.set(v);
     });
-
 }
