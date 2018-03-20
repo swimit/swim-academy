@@ -1,6 +1,5 @@
 package ai.swim.service;
 
-import ai.swim.util.HttpRequester;
 import recon.*;
 import swim.api.*;
 
@@ -16,18 +15,10 @@ public class Stock extends AbstractService {
   private ValueLane<Value> latest = valueLane()
     .didSet((n,o) -> history.put(System.currentTimeMillis(), n));
 
-  private void poll() {
-    final Value v = HttpRequester.poll(prop("title").toRecon());
-    if (v != null) latest.set(v);
-    schedulePoll();
-  }
+  @SwimLane("addLatest")
+  public CommandLane<Value> addLatest = commandLane()
+    .onCommand(v -> {
+      latest.set(v);
+    });
 
-  private void schedulePoll() {
-    setTimer(1000, () -> poll());
-  }
-
-  @Override
-  public void didStart() {
-    schedulePoll();
-  }
 }

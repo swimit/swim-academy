@@ -1,7 +1,7 @@
 package ai.swim;
 
 import ai.swim.service.MyPlane;
-import recon.Value;
+import ai.swim.util.HttpRequester;
 import swim.server.*;
 
 public class Main {
@@ -16,13 +16,13 @@ public class Main {
     return plane;
   }
 
-  private static void startService(SwimPlane plane, String title) {
-    plane.command("/stock/"+title, "unused", Value.ABSENT);
+  private static void sendData(SwimPlane sp) {
+    final String[] stocks = new String[]{"Microsoft", "Google", "Netflix"};
+    new HttpRequester(sp, stocks).sendToSwim();
   }
 
   public static void main(String[] args) {
     final SwimPlane plane = startServer();
-    startService(plane, "Microsoft");
-    startService(plane, "Google");
+    sendData(plane);
   }
 }
