@@ -4,8 +4,7 @@
     <title>SWIM Chart A</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <script src="http://developer.swim.services/assets/js/swim-app.js"></script>
-    <link rel="icon" type="image/png" href="favicon.png"/>
+    <script src="swim-app.js" swim-app></script>
     <style>
       html, body {
           display: flex;
@@ -21,51 +20,43 @@
   </head>
   <body style="flex-grow: 1;">
     <script type="text/recon">
-@chart {
-  id: chart
-
-  alertHue: $interpolate('#e1a138', '#fcb237')
-  host: 'swim://localhost:9001'
-  node: 'a/1'
-
-  history: @link(lane: 'history', type: value)
-#  data: @let($log($history))
-
-  transition: @transition(300, linear)
-
-  @plot(type: circle) {
-    lineDashArray: {4, 2}
-    lineColor: 'rgba(232,39,39,0.25)'
-    @each(t: $history.*) {
-      key: $log($t) || $t
-      @plotPoint {
-        sample: $log(@let($history.($[$t == key]))) || @let($history.($[$t == key]))
-        x: $sample
-        y: $random()
+    @chart {
+      host: 'swim://localhost:9001'
+      node: 'a/1'
+      linkA: @link(lane: 'history', type: map)
+      transition: @transition(1, linear)
+      @plot(type: circle) {
+        lineColor: '#fcb237'
+        lineWidth: '4px'
+        @each(t: $linkA.*:) {
+          key: $t
+          @plotPoint {
+            x: $t
+            y: $linkA.($t)
+            r: (1)
+          }
+        }
       }
+      top: {
+        gutter: '50px'
+      }
+      right: {
+        gutter: '50px'
+      }
+      bottom: @axis(type: time) {
+        gutter: '50px'
+      }
+      left: @axis(type: linear) {
+        domain: {0, 500}
+        gutter: '100px'
+      }
+
+      domainBoundLeft: true
+      domainBoundRight: true
+
+      domainPaddingTop: 1
+      domainPaddingBottom: 1
     }
-  }
-
-  top: {
-    gutter: '50px'
-  }
-  right: {
-    gutter: '50px'
-  }
-  bottom: @axis(type: time) {
-    gutter: '50px'
-    kinematic: true
-  }
-  left: @axis(type: linear) {
-    gutter: '100px'
-  }
-
-  domainBoundLeft: true
-  domainBoundRight: true
-
-  domainPaddingTop: 1
-  domainPaddingBottom: 1
-}
     </script>
   </body>
 </html>
