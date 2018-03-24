@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SWIM Pie A</title>
+    <title>SWIM Pie A History</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <script src="swim-app.min.js" swim-app></script>
@@ -24,18 +24,16 @@
         title: 'A'
         host: 'swim://localhost:9001'
         node: 'a/1'
-        linkA: @link(lane: 'latest', type: value)
-        @wedge {
-          value: $linkA.*
-          label: @text($value)
-          legend: @text([A])
-        }
-        @wedge {
-          value: 500 - $linkA.*
-          label: @text($value)
-          legend: @text([500 - A])
+        linkA: @link(lane: 'history', type: map)
+        @each(t: $linkA.*:) {
+          key: $t
+          @wedge {
+            value: $linkA.($t)
+            label: @text($value)
+          }
         }
       }
+
     </script>
   </body>
 </html>
