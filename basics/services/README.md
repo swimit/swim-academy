@@ -107,3 +107,6 @@ Execute the command `gradle runClient` from a shell pointed to the application's
    ```console
     user@machine:~$ gradle runClient
    ```
+## Run the UI
+Go to the [ui] (https://github.com/swimit/swim-academy/tree/master/basics/ui) directory. Run a `web server` of your choice in this directory. This is needed to load the Swim UI components. Please refer to the [README](https://github.com/swimit/swim-academy/tree/master/basics/ui/README.md) file for the details on these components. 
+
