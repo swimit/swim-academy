@@ -7,7 +7,6 @@ import recon.Record;
 import java.util.Properties;
 import java.util.Random;
 
-
 public class SwimProducer {
   private Producer<String, String> producer = null;
   public final String topic;
@@ -44,14 +43,13 @@ public class SwimProducer {
         try {
 
           producer.send(new ProducerRecord<>(topic, ip, content), (recordMetadata,e) ->{});
-
-            Thread.sleep(100);
-          } catch (InterruptedException e) {
-            System.out.println("Publication error");
-            System.exit(1);
-          } catch (Exception e) {
+          Thread.sleep(100);
+        } catch (InterruptedException e) {
+          System.out.println("Publication error");
+          System.exit(1);
+        } catch (Exception e) {
           throw new RuntimeException(e);
-          } finally {
+        } finally {
           if (producer != null) {
             try {
 //              producer.flush();
@@ -64,5 +62,4 @@ public class SwimProducer {
       }
     }
   }
-
 }

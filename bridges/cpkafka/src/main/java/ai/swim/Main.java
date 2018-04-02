@@ -14,8 +14,9 @@ import java.util.concurrent.CompletableFuture;
 
 
 public class Main {
-    public final static String TOPIC = "swim-test";
-    public final static String BOOTSTRAP_SERVERS = "localhost:9092";
+
+  public final static String TOPIC = "swim-test";
+  public final static String BOOTSTRAP_SERVERS = "localhost:9092";
 
   private static SwimPlane startServer() {
     final SwimServer server = new SwimServer();
@@ -28,15 +29,15 @@ public class Main {
   }
 
   private static Consumer<String, String> getConsumer(String bootstrapServers, String topic) {
-      // Asynchronously send kafka broker updates to SWIM services
-      final Properties props = new Properties();
-      props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
-      props.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaExampleConsumer");
-      props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-      props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-      final Consumer<String, String> consumer = new KafkaConsumer<>(props);
-      consumer.subscribe(Collections.singletonList(TOPIC));
-      return consumer;
+    // Asynchronously send kafka broker updates to SWIM services
+    final Properties props = new Properties();
+    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaExampleConsumer");
+    props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+    final Consumer<String, String> consumer = new KafkaConsumer<>(props);
+    consumer.subscribe(Collections.singletonList(TOPIC));
+    return consumer;
   }
 
   private static void sendData(SwimPlane sp) throws InterruptedException {
@@ -45,44 +46,41 @@ public class Main {
     final Runnable simulator = new Runnable() {
       final SwimProducer s = new SwimProducer(BOOTSTRAP_SERVERS, TOPIC);
 
-        @Override
+      @Override
       public void run() {
         s.simulate();
       }
     };
     new Thread(simulator).start();
 
-
+    // In a Thread, poll the above broker and relay any messages to SWIM
     final Runnable ingest = new Runnable() {
-        final Consumer<String, String> consumer = getConsumer(BOOTSTRAP_SERVERS, TOPIC);
+      final Consumer<String, String> consumer = getConsumer(BOOTSTRAP_SERVERS, TOPIC);
 
-        @Override
-        public void run() {
-            CompletableFuture.runAsync(() -> {
-                try {
-                    while (true) {
-                        final ConsumerRecords<String, String> consumerRecords = consumer.poll(1000);
-                        consumerRecords.forEach(record -> {
-                            System.out.printf("Consumed Record:(%s, %s, %d, %d)\n",
-                                    record.key(), record.value(), record.partition(), record.offset());
-
-                            sp.command("/"+TOPIC, "fromBroker", Value.of(new String(record.value())));
-                        });
-                        consumer.commitAsync();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    // Ignore
-                }
-            });
-
-        }
-      };
+      @Override
+      public void run() {
+        CompletableFuture.runAsync(() -> {
+          try {
+            while (true) {
+              final ConsumerRecords<String, String> consumerRecords = consumer.poll(1000);
+              consumerRecords.forEach(record -> {
+                  System.out.printf("Consumed Record:(%s, %s, %d, %d)\n",
+                    record.key(), record.value(), record.partition(), record.offset()
+                  );
+                  sp.command("/"+TOPIC, "fromBroker", Value.of(record.value()));
+                });
+              consumer.commitAsync();
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
+          } finally {
+            // Ignore
+          }
+        });
+      }
+    };
     new Thread(ingest).start();
-
   }
-
 
   public static void main(String[] args) throws InterruptedException {
     final SwimPlane plane = startServer();
