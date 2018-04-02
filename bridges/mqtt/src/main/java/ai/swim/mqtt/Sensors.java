@@ -13,11 +13,11 @@ public final class Sensors {
     connOpts.setCleanSession(true);
     System.out.println("Connecting to broker: "+broker);
     client.connect(connOpts);
-    System.out.println("Connected");
+    System.out.println("Sensors connected");
   }
 
   public void simulate() {
-    final int qos = 2;
+    final int qos = 1;
     while (true) {
       for (int i = 1; i <= 10; i++) {
         final String topic = "sensor/" + i;
@@ -34,7 +34,8 @@ public final class Sensors {
           Thread.sleep(100);
         } catch (MqttException | InterruptedException e) {
           System.out.println("Publication error");
-          System.exit(1);
+          e.printStackTrace();
+          return;
         }
       }
     }

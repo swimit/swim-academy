@@ -1,9 +1,7 @@
 package ai.swim.service;
 
-import recon.Value;
-import swim.api.AbstractService;
-import swim.api.CommandLane;
-import swim.api.SwimLane;
+import recon.*;
+import swim.api.*;
 
 public class Sensor extends AbstractService {
 
@@ -12,5 +10,4 @@ public class Sensor extends AbstractService {
      .onCommand(v -> {
        System.out.println(nodeUri().toUri() + " received: " + v.toRecon());
      });
-
 }
