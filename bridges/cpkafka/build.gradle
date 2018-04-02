@@ -27,7 +27,6 @@ repositories {
       digest(BasicAuthentication)
     }
   }
-  maven { url 'https://repo.eclipse.org/content/repositories/paho-releases/' }
   jcenter()
 }
 
