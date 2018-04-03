@@ -36,7 +36,7 @@ configurations.all {
 }
 
 dependencies {
-  compile 'ai.swim:swim-server-client:0.1.0.20180308024714-SNAPSHOT'
+  compile 'ai.swim:swim-server-client:1.2.0.20180404071514'
 }
 
 configurations {
