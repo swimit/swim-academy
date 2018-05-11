@@ -2,7 +2,7 @@
 
 Follow the [Installation](#installation) instructions below to create your environment for developing SWIM applications.
 
-Refer to the [SWIM Academy Wiki](https://github.com/swimit/swim-academy/wiki) for an overview of SWIM concepts.
+Refer to the [SWIM developer site](https://developer.swim.ai) for an overview of SWIM concepts.
 
 We highly recommend that you go through at LEAST the [basics](basics/services) tutorial to see how these concepts manifest themselves in a real SWIM application.
 
@@ -39,7 +39,7 @@ SWIM is an eventually consistent, real-time, distributed object system. The buil
 
 Public `Services` and `Lanes` form a SWIM API (streaming API over web-sockets).
 
-We again refer you to the [SWIM Academy Wiki](https://github.com/swimit/swim-academy/wiki) for a detailed overview of these SWIM concepts.
+We again refer you to the [SWIM developer site]([SWIM developer site](https://developer.swim.ai) for a detailed overview of these SWIM concepts.
  
 There are just three steps to build a SWIM Application.
 
