@@ -19,9 +19,9 @@ We will show here that this problem can be cleanly solved by a simple Swim serve
 
 # Writing the Swim Services
 
-[Services Wiki](https://github.com/swimit/swim-academy/wiki/Services#configuration)
+[Services](https://developer.swim.ai/server/services)
 
-[Lanes Wiki](https://github.com/swimit/swim-academy/wiki/Lanes)
+[Lanes](https://developer.swim.ai/server/lanes)
 
 If we take an object-oriented approach to our API, we may imagine an `A` class and a `B` class. Each class could store its latest stream element and its list of historical elements as a `value` field and a `list` field, respectively. Each endpoint corresponding to a specific device is an `instance` of one of these `classes`.
 
@@ -43,7 +43,7 @@ Filling out `BService.java` follows almost identically, but we'll need to utiliz
 
 * To store the latest stream element, we again need a `ValueLane`. But this time, defining our stream data type requires a custom Java object.
 
-    Thankfully, any Java class can be used as a lane parameter, _provided that_ `recon` _serializations and deserializations are defined for the class_. If we [annotate the class fields](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/model/ModelB.java#L9-L20) with `@ReconName` appropriately, Swim will automatically generate and store these transformations using reflection. Although this annotation-based process is simple and sufficient for this example, it proves rather restrictive in general; alternative means to generate the recon transforms can be found [here](https://github.com/swimit/swim-academy/wiki/Recon).
+    Thankfully, any Java class can be used as a lane parameter, _provided that_ `recon` _serializations and deserializations are defined for the class_. If we [annotate the class fields](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/model/ModelB.java#L9-L20) with `@ReconName` appropriately, Swim will automatically generate and store these transformations using reflection. Although this annotation-based process is simple and sufficient for this example, it proves rather restrictive in general; alternative means to generate the recon transforms can be found [here](https://developer.swim.ai/recon/what-is-recon).
     
 * After defining these transforms, we can set `model.ModelB` to be the `valueClass` of both the [`latest`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L15) and the [`history`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/BService.java#L30) `Lanes`. However, there's one more thing we should do.
 
@@ -57,7 +57,7 @@ We will again save the `CommandLane` discussion for the [Data Ingestion](#data-i
 
 # Writing the Plane
 
-[Planes Wiki](https://github.com/swimit/swim-academy/wiki/Planes-and-Main#configuration)
+[Planes](https://developer.swim.ai/server/planes)
 
 A Swim application is relatively unintrusive. Despite exposing a potentially huge number of API endpoints, an application only utilizes a single configurable port because Swim `Service` URIs are resolved internally. Persistent data is written to a configurable location on disk.
 
@@ -69,7 +69,7 @@ The object that manages such runtime behavior of Swim elements is called the Swi
 
 # Data Ingestion
 
-[Relevant reading](https://github.com/swimit/swim-academy/wiki/Data-Ingestion)
+[Relevant reading](https://developer.swim.ai/client/swim-client)
 
 Data ingestion is a two-part problem. Swim `Services` must expose means to receive data, and data sources must be able to send data to Swim `Services`.
 
@@ -84,8 +84,6 @@ Let's revisit `AService`. We have declared two `Lanes` to store data, but nowher
 The equivalent in `BService` is nearly identical. However, because the `didSet` callback on `latest` already `puts` to `history`, we only need to `set` `latest` in this `CommandLane`.
 
 ## Egress by Data Sources
-
-Refer to the [documentation](https://github.com/swimit/swim-academy/wiki/Data-Ingestion#egress-by-data-sources) on how an external client can write to Swim. We implement the `SwimClient` strategy here. We leave implementing the `Websocket Message` strategy as an exercise in your language of choice.
 
 To simulate a single `AService` stream for an `A` type device with id `1`, we simply [command](https://github.com/swimit/swim-academy/blob/master/basics/services/src/test/java/ai/swim/client/Client.java#L52-L55) the `addLatest` `CommandLane` at node `a/1`. Recall that the `node` and `lane` identifiers utilize the `@SwimRoute` defined in the [`Plane`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/App.java#L13) and the [`@SwimLane`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/service/AService.java#L37) defined in `AService`, respectively.
 
