@@ -85,15 +85,9 @@ Relevant Reading: [KPI Cards](http://developer.swim.ai/components/kpi)
 
 
 # Installation
-
-## Prerequisites
-`Swim UI` components require a `web server`. Please install a `web server` of your choice. 
-
 ## Run
-* Run the `web server` in the `basics/ui` directory. 
-
 * Run the  application and the client using the instructions documented [here](https://github.com/swimit/swim-academy/blob/master/basics/services/README.md).
 
-* Load the different html pages in your browser using the `web-server`. For example if your `web server` is running on port 8080 then load the 'chartA.html' by typing the following URL on your browser: 'http://localhost:8080/chartA.html'. Follow the same pattern for the other html files
+* Load the different html pages in your browser and see the SWIM UI components in action 
 
 
