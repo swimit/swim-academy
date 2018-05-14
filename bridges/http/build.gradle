@@ -18,14 +18,7 @@ sourceCompatibility = 1.8
 
 repositories {
   maven {
-    url 'https://repo.swim.it/swim-academy/'
-    credentials {
-      username "swim-academy"
-      password "academy-swim"
-    }
-    authentication {
-      digest(BasicAuthentication)
-    }
+    url 'https://repo.swim.it/swim-public/'
   }
 }
 
@@ -36,7 +29,7 @@ configurations.all {
 }
 
 dependencies {
-  compile 'ai.swim:swim-server-client:1.2.0.20180404071514'
+  compile 'ai.swim:swim-server-client:1.2.0.20180511161614'
 }
 
 configurations {
