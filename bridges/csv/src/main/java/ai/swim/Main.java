@@ -19,7 +19,7 @@ public class Main {
   }
 
   private static void sendData(SwimPlane sp) throws IOException, InterruptedException {
-    new CSVUtil(sp, System.getProperty("path", "/Users/rohitbose/Desktop/test.csv"))
+    new CSVUtil(sp, System.getProperty("path", "/test.csv"))
       .relayExternalData();
   }
 

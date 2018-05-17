@@ -1,5 +1,6 @@
 package ai.swim.util;
 
+import ai.swim.Main;
 import recon.*;
 import swim.server.SwimPlane;
 
@@ -15,19 +16,14 @@ public class CSVUtil {
     this.path = path;
   }
 
+  // Use with FileService
   private static void sendReconToSwim1(Record rec, String fileName, SwimPlane sp) throws IOException {
     final String node = "/file/" + fileName;
     final String lane = "addLatest";
-    final Record newRecord = Record.of();
-    // Only send over the entries containing numeric fields
-    rec.stream().map(Item::asField).forEach(f -> {
-      try {
-        newRecord.slot(f.getKey(), Value.of(f.getValue().numberValue()));
-      } catch (NumberFormatException swallowed) {}
-    });
-    if (!newRecord.isEmpty()) sp.command(node, lane, newRecord);
+    sp.command(node, lane, rec);
   }
 
+  // Use with ColumnService
   private static void sendReconToSwim2(Record rec, String fileName, SwimPlane sp) throws IOException {
     for (Item i : rec) {
       final String node = "/column/" + i.getKey().toRecon();
@@ -37,6 +33,7 @@ public class CSVUtil {
     }
   }
 
+  // Use with ComboService
   private static void sendReconToSwim3(Record rec, String fileName, SwimPlane sp) throws IOException {
     for (Item i : rec) {
       final String node = "/combo/" + fileName + "/" + i.getKey().toRecon();
@@ -46,8 +43,16 @@ public class CSVUtil {
   }
 
   public void relayExternalData() throws IOException, InterruptedException {
-    final String fileName = new File(path).getName();
-    BufferedReader br = new BufferedReader(new FileReader(path));
+    // Read the file by first...
+    BufferedReader br;
+    try {
+      // assuming that it is a raw path, then...
+      br = new BufferedReader(new FileReader(path));
+    } catch (Exception e) {
+      // assuming it is a resource in the .jar
+      br = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream(path)));
+    }
+    String fileName = new File(path).getName();
     // Cache the header
     final String[] fields = br.readLine().split(",");
     String row;
@@ -60,11 +65,12 @@ public class CSVUtil {
       for (int i = 0; i < fields.length; i++) {
         val.slot(fields[i], entries[i]);
       }
-      // Blackbox to send this Value to the right SWIM Service instances, example implementations below
+      // We now have enough info to create a SWIM message, but different
+      // Service implementations require different logic.
       sendReconToSwim1(val, fileName, sp);
       sendReconToSwim2(val, fileName, sp);
       sendReconToSwim3(val, fileName, sp);
-      // Throttle if desired
+      // Throttle (if desired)
       Thread.sleep(1000);
     }
   }
