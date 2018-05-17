@@ -55,4 +55,10 @@ The number of rows affects `Lanes` contents, not the `Service` instance counts.
 
 ### [MyPlane.java](https://github.com/swimit/swim-academy/blob/master/bridges/csv/src/main/java/ai/swim/service/MyPlane.java)
 
-Nothing too special here other than that the `SwimRoute` corresponding to `ComboService` contains two dynamic components.
+Nothing fancy here other than that the `SwimRoute` corresponding to `ComboService` contains two dynamic components.
+
+## main
+
+### [Main.java](https://github.com/swimit/swim-academy/blob/master/bridges/csv/src/main/java/ai/swim/Main.java)
+
+Nothing special here, either. In the `main` thread, we start a Swim Server, which then runs in the background. We send a reference to the `Plane` into `CSVUtil` to enable direct communication, rather than requiring a `SwimClient` instance or websockets.
