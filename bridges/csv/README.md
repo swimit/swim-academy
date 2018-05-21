@@ -19,7 +19,7 @@ Note that these high-level steps generalize to *any* static files; our using CSV
 
 ### [CSVUtil.java](https://github.com/swimit/swim-academy/blob/master/bridges/csv/src/main/java/ai/swim/util/CSVUtil.java)
 
-We designate `CSVUtil` class responsible for Steps 1. and 2. of the aforementioned steps. Its only public method, `relayExternalData()`, has three tasks:
+We designate the `CSVUtil` class responsible for Steps 1. and 2. of the aforementioned steps. Its only public method, `relayExternalData()`, has three tasks:
 
 1. Read some `.csv` from disk one line at a time; assume that the first line is a header
 2. Construct a SWIM `command` message from the data available in both the header and the current line
