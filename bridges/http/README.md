@@ -1,8 +1,6 @@
 # Overview
 
-This project is an [ingress bridge](https://developer.swim.ai/bridges/ingress) that sends data from an HTTP endpoint to SWIM `Lanes`.
-
-The steps to create this bridge have the following implementations in this project:
+This project is an [ingress bridge](https://developer.swim.ai/bridges/ingress) that sends data from an HTTP endpoint to SWIM `Lanes`. The steps to create this bridge have the following implementations in this project:
 
 1. *Logic to receive source data*
   * Logic that periodically polls an HTTP server and receives a JSON response with each request
