@@ -1,6 +1,6 @@
 # Overview
 
-This project is an [ingress bridge](https://developer.swim.ai/bridges/ingress) that takes 
+This project is an [ingress bridge](https://developer.swim.ai/bridges/ingress) that sends data from an HTTP endpoint to SWIM `Lanes`.
 
 The steps to create this bridge have the following implementations in this project:
 
@@ -12,6 +12,8 @@ The steps to create this bridge have the following implementations in this proje
   * Writing appropriate `Services`, `Lanes`, and a `Plane` to ensure that the above SWIM `commands` have valid endpoints
 
 Our using of polling is an *implementation*, not at a *restriction*. An external process could equivalently push data directly to the SWIM Server via SWIM-Client or websockets.
+
+While it may be tempting to place the poll logic inside the SWIM `Services` themselves, we **strongly recommend you do not do this** -- at least not trivially. Like disk reads, trivial HTTP calls are blocking in Java; a `Lane` or `Service` callback that includes such a call cannot complete until the call ends, which delays other callbacks within the same `Service` instance.
 
 # Source Walkthrough
 
