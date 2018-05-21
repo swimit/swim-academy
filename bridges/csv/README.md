@@ -21,7 +21,7 @@ Note that these high-level steps generalize to *any* static files; our using CSV
 
 We designate `CSVUtil` class responsible for Steps 1. and 2. of the aforementioned steps. Its only public method, `relayExternalData()`, has three tasks:
 
-1. Read some `.csv` from disk one line at a time and assumes that the first line is a header
+1. Read some `.csv` from disk one line at a time; assume that the first line is a header
 2. Construct a SWIM `command` message from the data available in both the header and the current line
 3. Send the message to SWIM
 
