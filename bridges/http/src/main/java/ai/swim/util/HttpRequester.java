@@ -64,7 +64,7 @@ public final class HttpRequester {
       //    ...
       for (Item individual : bigRecord) {
         // From the above Recon, we only want to return the Item corresponding to
-        // the title in the function parameter
+        // the `title` function parameter
         if (individual.get("title").stringValue("").equals(title)) {
           return individual.asValue();
         }
