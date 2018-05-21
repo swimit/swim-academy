@@ -48,7 +48,8 @@ public final class HttpRequester {
       urlConnection = (HttpURLConnection) url.openConnection();
       urlConnection.disconnect();
       // Because Recon is a strict superset of JSON, there exists a Value.parseJson()
-      // command that the deserialized Recon representation of a serialized JSON String.
+      // command that returns the deserialized Recon representation of a serialized
+      // JSON String.
       final Record bigRecord = Value.parseJson(
         new Scanner(urlConnection.getInputStream()).useDelimiter("\\A").next()
       ).asRecord();
