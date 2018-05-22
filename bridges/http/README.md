@@ -39,6 +39,6 @@ As expected, contains the `@SwimRoute` to handle requests to `nodeUris` of the f
 
 ## main
 
-### [Main.java](https://github.com/swimit/swim-academy/blob/master/bridges/csv/src/main/java/ai/swim/Main.java)
+### [Main.java](https://github.com/swimit/swim-academy/blob/master/bridges/http/src/main/java/ai/swim/Main.java)
 
 Nothing special here, either. Run a SWIM Server in the background, then send a reference to the `Plane` into `HttpRequester` to enable direct usage of the SWIM API; no SWIM-Client or websockets needed here.
