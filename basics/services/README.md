@@ -124,7 +124,7 @@ node: 'b/1'
 linkB: @link(lane: 'latest', type: value) 
 value: $linkB.i 
 ```
-'latest' is a value lane, use the **`type:value`** in the `@link` tag. Data in the 'latest' lane for 'b/1' contains a custom type, `[ModelB]`(https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/model/ModelB.java). Remember that `ModelB` has a recon representation as follows: '@modelB{b:false,s:"1",i:1,l:1,f:1,d:1}', so you can use the **`$linkB.i`** expression to get the 'i' value. You can following the same pattern for getting the other fields, eg: **`$linkB.l`** expression to get the field 'l'.
+'latest' is a value lane, use the **`type:value`** in the `@link` tag. Data in the 'latest' lane for 'b/1' contains a custom type, [`ModelB`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/model/ModelB.java). Remember that `ModelB` has a recon representation as follows: '@modelB{b:false,s:"1",i:1,l:1,f:1,d:1}', so you can use the **`$linkB.i`** expression to get the 'i' value. You can following the same pattern for getting the other fields, eg: **`$linkB.l`** expression to get the field 'l'.
 
 * 'history' lane of a/1: Example of a **map** lane that has **primitive** values i.e. booleans, integers, doubles, strings etc. 
 ```
@@ -151,14 +151,14 @@ linkB: @link(lane: 'history', type: map)
 'history' is a value lane, use the **`type:map`** in the `@link` tag. Iterate through the elements of the map using the code snippet: `@each(t: $linkB.*:)`, here 't' is the key to the element in the map. Data in the 'history' lane of 'b/1' contains a custom type, [`ModelB`](https://github.com/swimit/swim-academy/blob/master/basics/services/src/main/java/ai/swim/model/ModelB.java). Remember that `ModelB` has a recon representation as follows: '@modelB{b:false,s:"1",i:1,l:1,f:1,d:1}', so you can use the **`$linkB.($t).i`** expression to get the 'i' value. You can following the same pattern for getting the other fields, eg: **`$linkB.($t).l`** expression to get the field 'l'. 
 
 ### Gauge
-Relevant Reading: [Gauges](http://developer.swim.ai/components/gauge)
+Relevant Reading: [Gauges](https://developer.swim.ai/components/gauge)
 
 1. [gaugeA.html](https://github.com/swimit/swim-academy/blob/master/basics/services/ui/gaugeA.html): Real-time gauge with values from the `latest` lane of `AService` instance 'a/1'
 2. [gaugeB.html](https://github.com/swimit/swim-academy/blob/master/basics/services/ui/gaugeB.html): Real-time gauge with values from the `latest` lane of `BService` instance 'b/1'
 
 
 ### Pie
-Relevant Reading: [Pies](http://developer.swim.ai/components/pie)
+Relevant Reading: [Pies](https://developer.swim.ai/components/pie)
 
 1. [pieA.html](https://github.com/swimit/swim-academy/blob/master/basics/services/ui/pieA.html): Real-time pie with values from the `latest` lane of `AService` instance 'a/1'
 2. [pieB.html](https://github.com/swimit/swim-academy/blob/master/basics/services/ui/pieB.html): Real-time pie with values from the `latest` lane of `BService` instance 'b/1'
@@ -166,13 +166,13 @@ Relevant Reading: [Pies](http://developer.swim.ai/components/pie)
 4. [pieB-history.html](https://github.com/swimit/swim-academy/blob/master/basics/services/ui/pieB-history.html): Real-time pie with values from the `history` lane of `BService` instance 'b/1'
 
 ### Chart
-Relevant Reading: [Charts](http://developer.swim.ai/components/chart)
+Relevant Reading: [Charts](https://developer.swim.ai/components/chart)
 
 1. [chartA.html](https://github.com/swimit/swim-academy/blob/master/basics/services/ui/chartA.html): Real-time chart with values from the `history` lane of `AService` instance 'a/1'
 2. [chartB.html](https://github.com/swimit/swim-academy/blob/master/basics/services/ui/chartB.html): Real-time chart with values from the `history` lane of `BService` instance 'b/1'
 
 ### KPI
-Relevant Reading: [KPI Cards](http://developer.swim.ai/components/kpi)
+Relevant Reading: [KPI Cards](https://developer.swim.ai/components/kpi)
 
 1. [kpiA.html](https://github.com/swimit/swim-academy/blob/master/basics/services/ui/kpiA.html): Real-time KPI card with values from the `latest` lane of `AService` instance 'a/1'
 2. [kpiB.html](https://github.com/swimit/swim-academy/blob/master/basics/services/ui/kpiB.html): Real-time KPI card with values from the `latest` lane of `BService` instance 'b/1'
