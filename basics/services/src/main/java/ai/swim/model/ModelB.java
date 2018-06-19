@@ -43,6 +43,8 @@ public class ModelB {
   public ModelB() {
   }
 
+  public static Form<ModelB> FORM = Form.forClass(ModelB.class);
+
   public ModelB(Boolean bool, String str, Integer intg, Long lng, Float flt, Double dbl) {
     this.bool = bool;
     this.str = str;
@@ -77,7 +79,7 @@ public class ModelB {
   }
 
   public Value toValue() {
-    return Form.forClass(ModelB.class).mold(this);
+    return FORM.mold(this);
   }
 
   @Override
