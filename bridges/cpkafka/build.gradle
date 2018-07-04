@@ -30,7 +30,7 @@ configurations.all {
 }
 
 dependencies {
-  compile 'ai.swim:swim-server-client:1.2.0.20180531204107'
+  compile 'ai.swim:swim-server-client:1.2.1'
   compile group: 'org.apache.kafka', name: 'kafka-clients', version: '1.0.0'
 }
 
