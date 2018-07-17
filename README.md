@@ -12,19 +12,17 @@ We highly recommend that you go through at LEAST the [basics](basics/services) t
 
 * Install [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html). Ensure that your JAVA_HOME environment variable is pointed to the Java 8 installation location. Ensure that your PATH includes $JAVA_HOME.
 
-* Install [Gradle](https://gradle.org/install/). Ensure that your PATH includes the Gradle `bin` directory.
-
 * Refer to the sample [build.gradle](basics/services/build.gradle) for reference. You may use this build.gradle for all your applications.
 
-* To build the application execute the command `gradle build` from a shell pointed to the application's home directory. This will create a `.zip` and a `.tar` in `APP_HOME/build/distributions` directory. Unpackage the `.zip` or the `.tar` file. The unpackaged contents will contain a `bin/` directory which contains scripts that can be used to run the application.
+* To build the application execute the command `./gradlew build` from a shell pointed to the application's home directory. This will create a `.zip` and a `.tar` in `APP_HOME/build/distributions` directory. Unpackage the `.zip` or the `.tar` file. The unpackaged contents will contain a `bin/` directory which contains scripts that can be used to run the application.
     ```console
-    user@machine:~$ gradle build
+    user@machine:~$ ./gradlew run
     ```
   
 
-* Alternatively, if you don't mind running through the Gradle VM, execute the command `gradle run`. This will both build and run the application.
+* Alternatively, if you don't mind running through the Gradle VM, execute the command `./gradlew run`. This will both build and run the application.
     ```console
-    user@machine:~$ gradle run
+    user@machine:~$ ./gradlew run
     ```
 
 

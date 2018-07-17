@@ -49,13 +49,13 @@ By now you must be familiar that `Command Lanes` are used to inject data from wi
 # Run
 
 ## Run the application
-Execute the command `gradle run` from a shell pointed to the application's home directory. This will start the Swim plane.
+Execute the command `./gradlew run` from a shell pointed to the application's home directory. This will start the Swim plane.
    ```console
-    user@machine:~$ gradle run
+    user@machine:~$ ./gradlew run
    ```
 
 ## Run the client
-Execute the command `gradle runClient` from a shell pointed to the application's home directory. This will start the client.
+Execute the command `./gradlew runClient` from a shell pointed to the application's home directory. This will start the client.
    ```console
-    user@machine:~$ gradle runClient
+    user@machine:~$ ./gradlew runClient
    ```
