@@ -13,7 +13,7 @@ public class BService extends AbstractService {
    */
   @SwimLane("latest")
   ValueLane<ModelB> latest = valueLane().valueClass(ModelB.class)
-      .didSet((oldValue, newValue) -> {
+      .didSet((newValue, oldValue) -> {
         System.out.println("latest lane set with value: " + newValue);
 
         // Update the history lane when this lane gets updated
